@@ -13,9 +13,14 @@ class FirstScreen extends StatelessWidget {
   }
 }
 
-class BottomSheetScreen extends StatelessWidget {
+class BottomSheetScreen extends StatefulWidget {
   const BottomSheetScreen({Key? key}) : super(key: key);
 
+  @override
+  State<BottomSheetScreen> createState() => _BottomSheetScreenState();
+}
+
+class _BottomSheetScreenState extends State<BottomSheetScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,38 +29,46 @@ class BottomSheetScreen extends StatelessWidget {
       alignment: Alignment.center,
       child: MaterialButton(
         onPressed: () {
+          page = 0;
           showModalBottomSheet<void>(
             context: context,
             builder: (BuildContext context) {
-              return page == 0
-                  ? Container(
-                      height: MediaQuery.of(context).size.height,
-                      color: Colors.amber,
-                      child: Row(
-                        children: [
-                          Button(
-                              title: 'Fish',
-                              onPressed: () {
-                                page = 1;
-                              }),
-                          Button(
-                              title: 'Food',
-                              onPressed: () {
-                                page = 2;
-                              }),
-                          Button(
-                              title: 'Rice',
-                              onPressed: () {
-                                page = 3;
-                              }),
-                        ],
-                      ),
-                    )
-                  : page == 1
-                      ? const ListViewPage(title: 'Fish')
-                      : page == 2
-                          ? const ListViewPage(title: 'Food')
-                          : const ListViewPage(title: 'Rice');
+              return StatefulBuilder(
+                  builder: (BuildContext context, StateSetter setState) => page == 0
+                      ? Container(
+                          height: MediaQuery.of(context).size.height,
+                          color: Colors.amber,
+                          child: Row(
+                            children: [
+                              Button(
+                                  title: 'Fish',
+                                  onPressed: () {
+                                    page = 1;
+                                    setState(() {});
+                                    debugPrint('page $page');
+                                  }),
+                              Button(
+                                  title: 'Food',
+                                  onPressed: () {
+                                    setState(() {});
+                                    page = 2;
+                                    debugPrint('page $page');
+                                  }),
+                              Button(
+                                  title: 'Rice',
+                                  onPressed: () {
+                                    page = 3;
+                                    setState(() {});
+                                    debugPrint('page $page');
+                                  }),
+                            ],
+                          ),
+                        )
+                      : page == 1
+                          ? const ListViewPage(title: 'Fish')
+                          : page == 2
+                              ? const ListViewPage(title: 'Food')
+                              : const ListViewPage(title: 'Rice'));
             },
           );
         },
