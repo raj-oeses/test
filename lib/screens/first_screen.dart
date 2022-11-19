@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:upwork/controller/first_controller.dart';
 
-var flag = 0;
+var page = 0;
 
 class FirstScreen extends StatelessWidget {
   const FirstScreen({Key? key}) : super(key: key);
@@ -20,51 +18,44 @@ class BottomSheetScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pageController = Get.find<BottomSheetPageController>();
     return Container(
-      height: Get.height,
-      width: Get.width,
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
       alignment: Alignment.center,
       child: MaterialButton(
         onPressed: () {
-          pageController.pageController.value = 0;
           showModalBottomSheet<void>(
             context: context,
             builder: (BuildContext context) {
-              return Obx(
-                () => pageController.pageController.value == 0
-                    ? Container(
-                        height: Get.height,
-                        color: Colors.amber,
-                        child: Row(
-                          children: [
-                            Button(
-                                title: 'Fish',
-                                onPressed: () {
-                                  pageController.pageController.value = 1;
-                                  ++flag;
-                                }),
-                            Button(
-                                title: 'Food',
-                                onPressed: () {
-                                  pageController.pageController.value = 2;
-                                  ++flag;
-                                }),
-                            Button(
-                                title: 'Rice',
-                                onPressed: () {
-                                  pageController.pageController.value = 3;
-                                  ++flag;
-                                }),
-                          ],
-                        ),
-                      )
-                    : pageController.pageController.value == 1
-                        ? const ListViewPage(title: 'Fish')
-                        : pageController.pageController.value == 2
-                            ? const ListViewPage(title: 'Food')
-                            : const ListViewPage(title: 'Rice'),
-              );
+              return page == 0
+                  ? Container(
+                      height: MediaQuery.of(context).size.height,
+                      color: Colors.amber,
+                      child: Row(
+                        children: [
+                          Button(
+                              title: 'Fish',
+                              onPressed: () {
+                                page = 1;
+                              }),
+                          Button(
+                              title: 'Food',
+                              onPressed: () {
+                                page = 2;
+                              }),
+                          Button(
+                              title: 'Rice',
+                              onPressed: () {
+                                page = 3;
+                              }),
+                        ],
+                      ),
+                    )
+                  : page == 1
+                      ? const ListViewPage(title: 'Fish')
+                      : page == 2
+                          ? const ListViewPage(title: 'Food')
+                          : const ListViewPage(title: 'Rice');
             },
           );
         },

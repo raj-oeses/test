@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:upwork/binding/page_binding.dart';
 import 'package:upwork/screens/first_screen.dart';
 
 void main() {
@@ -13,9 +11,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialBinding: ControllerBinding(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
